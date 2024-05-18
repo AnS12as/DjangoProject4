@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.templatetags.static import static
 from django.urls import path
 from catalog.apps import CatalogConfig
 from catalog.views import home, contacts
