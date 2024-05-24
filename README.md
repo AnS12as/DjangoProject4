@@ -1,25 +1,56 @@
-Задание 1
-Для начала работы над задачей выполните первые шаги:
+# Django Project
 
- Настройте виртуальное окружение.
- Создайте новый Django-проект.
-Задание 2
-После успешного создания проекта сделайте первую настройку. Для этого:
+## Задание 1: Начало работы
 
- Создайте первое приложение с названием 
-catalog
-.
- Внесите начальные настройки проекта.
- Сделайте настройку урлов (URL-файлов) для нового приложения.
-Задание 3
-Подготовьте два шаблона для домашней страницы и страницы с контактной информацией.
+Для начала работы над задачей выполните следующие шаги:
 
-Для создания шаблонов лучше использовать UIkit Bootstrap. Это удобный набор элементов, которые уже стилизованы и готовы к использованию. UIkit Bootstrap помогает избежать самостоятельной верстки макетов.
+1. Настройте виртуальное окружение:
+   ```bash
+   python -m venv myenv
+   source myenv/bin/activate  # Для Windows используйте myenv\Scripts\activate
 
-Если возникнут проблемы при создании собственного интерфейса, возьмите за основу данный шаблон: https://github.com/oscarbotru/.
+## Задание 2
+   pip install django
+   django-admin startproject myproject
+   cd myproject
+   python manage.py startapp catalog
+   from django.urls import path
+   from . import views
 
-Задание 4
-В приложении в контроллере реализуйте два контроллера:
+   urlpatterns = [
+  path('', views.home, name='home'),
+ path('contact/', views.contact, name='contact'),
+]
 
- Контроллер, который отвечает за отображение домашней страницы.
- Контроллер, который отвечает за отображение контактной информации.
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('catalog.urls')),
+]
+
+## Задание 3
+Создайте папку templates в директории catalog.
+
+Внутри папки templates создайте две HTML страницы: home.html и contact.html.
+
+## Задание 4
+
+from django.shortcuts import render
+
+def home(request):
+    return render(request, 'catalog/home.html')
+
+  from django.shortcuts import render
+
+def contact(request):
+    return render(request, 'catalog/contact.html')
+
+## Запуск проекта
+
+python manage.py migrate
+python manage.py runserver
+
+
+
