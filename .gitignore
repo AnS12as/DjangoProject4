@@ -95,3 +95,33 @@ cython_debug/
 
 # PyCharm settings
 .idea/
+
+# Python virtual environment
+.venv/
+venv/
+env/
+
+# Python-specific ignores
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+*.so
+
+# Django-specific ignores
+*.log
+local_settings.py
+db.sqlite3
+media/
+
+# VS Code-specific ignores
+.vscode/
+
+# PyCharm-specific ignores
+.idea/
+
+# Other system-specific ignores
+.DS_Store
+Thumbs.db

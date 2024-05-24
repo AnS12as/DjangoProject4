@@ -11,3 +11,4 @@ urlpatterns = [
     path('product/<int:pk>/', product_detail, name='product_detail'),
     path('product/<int:pk>/edit/', product_edit, name='product_edit'),
 ]
+
