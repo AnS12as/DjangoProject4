@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1> List of products </h1>
+    <a href="{% url 'catalog:product_create' %}" class="btn btn-primary mb-3">Create a new product</a>
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ product.image.url }}" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5>{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-sm btn-outline-secondary">View</a>
+                            <a href="{% url 'catalog:product_edit' product.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                        </div>
+                        <small class="text-muted">{{ product.created_at }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

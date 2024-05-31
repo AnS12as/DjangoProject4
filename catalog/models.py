@@ -1,4 +1,6 @@
 from django.db import models
+from django.template.defaultfilters import slugify
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -31,3 +33,23 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+class BlogPost(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.CharField(max_length=200, unique=True)
+    content = models.TextField()
+    preview = models.ImageField(upload_to='blog_previews/')
+    created_at = models.DateTimeField(auto_now_add=True)
+    published = models.BooleanField(default=False)
+    views = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('catalog:blogpost_detail', kwargs={'pk': self.pk})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
