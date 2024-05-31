@@ -3,15 +3,15 @@
 {% load custom_filters %}
 
 {% block content %}
-    <div class="container py-5">
-        <h1>{{ post.title }}</h1>
-        <img src="{{ post.preview|media_url }}" class="img-fluid" alt="{{ post.title }}">
-        <p>{{ post.content }}</p>
-        <p><strong>Опубликовано:</strong> {{ post.published }}</p>
-        <p><strong>Количество просмотров:</strong> {{ post.views }}</p>
-        <div class="btn-group">
-            <a href="{% url 'catalog:blogpost_edit' post.pk %}" class="btn btn-primary">Edit</a>
-            <a href="{% url 'catalog:blogpost_delete' post.pk %}" class="btn btn-danger">Delete</a>
-        </div>
+<div class="container py-5">
+    <h1>{{ post.title }}</h1>
+    <img src="{{ post.preview|media_url }}" class="img-fluid" alt="{{ post.title }}">
+    <p>{{ post.content }}</p>
+    <p><strong>Published:</strong> {{ post.created_at }}</p>
+    <p><strong>Views:</strong> {{ post.views }}</p>
+    <div class="btn-group">
+        <a href="{% url 'catalog:blogpost_edit' post.pk %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'catalog:blogpost_delete' post.pk %}" class="btn btn-danger">Delete</a>
     </div>
+</div>
 {% endblock %}
