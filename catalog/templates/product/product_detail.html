@@ -1,45 +1,46 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-    <h1>{{ product.name }}</h1>
-    <p>{{ product.description }}</p>
-    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid mb-3">
-    <p><strong>Price:</strong> {{ product.price }}</p>
-    <p><strong>Category:</strong> {{ product.category.name }}</p>
+    <div class="container">
+        <h1>{{ product.name }}</h1>
+        <p>{{ product.description }}</p>
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid mb-3">
+        <p><strong>Price:</strong> {{ product.price }}</p>
+        <p><strong>Category:</strong> {{ product.category.name }}</p>
 
-    {% if current_version %}
-    <p><strong>Current Version:</strong> {{ current_version.version_name }} ({{ current_version.version_number }})</p>
-    {% else %}
-    <p>No current version available.</p>
-    {% endif %}
+        {% if current_version %}
+            <p><strong>Current Version:</strong> {{ current_version.version_name }}
+                ({{ current_version.version_number }})</p>
+        {% else %}
+            <p>No current version available.</p>
+        {% endif %}
 
-    <a href="{% url 'catalog:product_list' %}" class="btn btn-secondary">Back to Main Page</a>
-    <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-primary">Edit Product</a>
-    <form action="{% url 'catalog:product_delete' product.pk %}" method="post" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Delete Product</button>
-    </form>
+        <a href="{% url 'catalog:product_list' %}" class="btn btn-secondary">Back to Main Page</a>
+        <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-primary">Edit Product</a>
+        <form action="{% url 'catalog:product_delete' product.pk %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete Product</button>
+        </form>
 
-    <hr>
+        <hr>
 
-    <h2>Manage Versions</h2>
-    <a href="{% url 'catalog:version_create' %}" class="btn btn-success mb-3">Add New Version</a>
+        <h2>Manage Versions</h2>
+        <a href="{% url 'catalog:version_create' %}" class="btn btn-success mb-3">Add New Version</a>
 
-    {% for version in product.versions.all %}
-    <div class="card mb-2">
-        <div class="card-body">
-            <h5 class="card-title">{{ version.version_name }} ({{ version.version_number }})</h5>
-            <p class="card-text">
-                Current: {{ version.is_current }}
-            </p>
-            <a href="{% url 'catalog:version_update' version.pk %}" class="btn btn-warning">Edit Version</a>
-            <form action="{% url 'catalog:version_delete' version.pk %}" method="post" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Delete Version</button>
-            </form>
-        </div>
+        {% for version in product.versions.all %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5 class="card-title">{{ version.version_name }} ({{ version.version_number }})</h5>
+                    <p class="card-text">
+                        Current: {{ version.is_current }}
+                    </p>
+                    <a href="{% url 'catalog:version_update' version.pk %}" class="btn btn-warning">Edit Version</a>
+                    <form action="{% url 'catalog:version_delete' version.pk %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete Version</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 {% endblock %}

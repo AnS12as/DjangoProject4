@@ -1,4 +1,6 @@
+# /path/to/your/project/catalog/models.py
 from django.db import models
+from django.conf import settings
 
 
 class Category(models.Model):
@@ -23,6 +25,8 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата последнего изменения')
     manufactured_at = models.DateField(verbose_name='Дата производства продукта', null=True, blank=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Владелец',
+                              related_name='products')
 
     class Meta:
         verbose_name = 'Продукт'

@@ -9,6 +9,7 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = ['name', 'description', 'image', 'category', 'price', 'manufactured_at']
 
+
     def clean_name(self):
         banned_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
         name = self.cleaned_data.get('name')
@@ -45,3 +46,6 @@ class BlogPostForm(forms.ModelForm):
     class Meta:
         model = BlogPost
         fields = ['title', 'content', 'preview', 'published']
+
+
+

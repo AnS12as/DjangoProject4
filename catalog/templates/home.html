@@ -1,8 +1,14 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
-    <div class="container py-5">
-        <h1>Welcome to Our Site!</h1>
-        <p>This is the home page.</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Home Page</h1>
+        <a href="{% url 'catalog:product_list' %}">Go to Product List</a>
     </div>
-{% endblock %}
+</body>
+</html>
