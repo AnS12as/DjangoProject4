@@ -7,8 +7,7 @@ from .models import Product, Version, BlogPost
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'description', 'image', 'category', 'price', 'manufactured_at']
-
+        fields = ['name', 'description', 'image', 'category', 'price', 'manufactured_at', 'published']
 
     def clean_name(self):
         banned_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
@@ -46,6 +45,3 @@ class BlogPostForm(forms.ModelForm):
     class Meta:
         model = BlogPost
         fields = ['title', 'content', 'preview', 'published']
-
-
-

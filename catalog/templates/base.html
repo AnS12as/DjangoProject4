@@ -8,6 +8,7 @@
     <title>{% block title %}Product example · Bootstrap v5.3{% endblock %}</title>
 
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">  <!-- Link to your custom CSS file -->
     {% block extra_head %}{% endblock %}
 </head>
 <body>
@@ -15,7 +16,7 @@
     <div class="container">
         <a class="navbar-brand d-md-none" href="#">
             <svg class="bi" width="24" height="24">
-                <use xlink:href="#aperture"/>
+                <use xlink:href="#aperture"></use>
             </svg>
             Aperture
         </a>

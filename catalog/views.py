@@ -1,10 +1,15 @@
 # /path/to/your/project/catalog/views.py
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from catalog.forms import ProductForm, VersionForm
 from catalog.models import Product, Version
+
+
+def home(request):
+    products = Product.objects.all()
+    return render(request, 'home.html', {'products': products})
 
 
 class ProductListView(LoginRequiredMixin, ListView):
@@ -55,10 +60,30 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         return reverse_lazy('catalog:product_list')
 
 
+def edit_product(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    if request.user != product.owner and not request.user.has_perm('catalog.change_product'):
+        return redirect('home')
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('product_detail', pk=product.pk)
+    else:
+        form = ProductForm(instance=product)
+    return render(request, 'product/edit_product.html', {'form': form})
+
+
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     template_name = 'product/product_confirm_delete.html'
     success_url = reverse_lazy('catalog:product_list')
+
+
+def product_detail(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    return render(request, 'product/product_detail.html', {'product': product})
 
 
 class VersionCreateView(LoginRequiredMixin, CreateView):

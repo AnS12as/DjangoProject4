@@ -27,11 +27,13 @@ class Product(models.Model):
     manufactured_at = models.DateField(verbose_name='Дата производства продукта', null=True, blank=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Владелец',
                               related_name='products')
+    published = models.BooleanField(default=False, verbose_name='Опубликовано')
 
     class Meta:
-        verbose_name = 'Продукт'
-        verbose_name_plural = 'Продукты'
-        ordering = ['name']
+        permissions = [
+            ('can_publish_product', 'Can publish product'),
+            ('can_unpublish_product', 'Can unpublish product'),
+        ]
 
     def __str__(self):
         return self.name
