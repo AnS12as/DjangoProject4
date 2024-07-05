@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth import login
@@ -9,13 +10,17 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.utils.crypto import get_random_string
 from django.contrib.auth.hashers import make_password
+from django.views.generic import CreateView
+
 from .forms import CustomUserCreationForm
+from django import forms
+from .models import CustomUser
 
 
-class RegisterView(generic.CreateView):
-    form_class = CustomUserCreationForm
-    success_url = reverse_lazy('login')
+class RegisterView(CreateView):
+    form_class = UserCreationForm
     template_name = 'registration/register.html'
+    success_url = reverse_lazy('login')
 
     def form_valid(self, form):
         user = form.save()
@@ -32,6 +37,12 @@ class RegisterView(generic.CreateView):
 
 class CustomLoginView(LoginView):
     template_name = 'registration/login.html'
+
+
+class CustomUserForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['email', 'avatar', 'phone_number', 'country']
 
 
 class PasswordResetView(View):

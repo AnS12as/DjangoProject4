@@ -1,20 +1,18 @@
-{% extends "base.html" %}
-
-{% block content %}
-    <h1>Welcome to My Site</h1>
-    <p>This is the home page.</p>
-    <h2>Products</h2>
-    <ul class="list-unstyled">
-        {% for product in products %}
-            <li class="mb-4">
-                <h3>{{ product.name }}</h3>
-                <p>{{ product.description }}</p>
-                <p>Price: {{ product.price }}</p>
-                <p>Category: {{ product.category }}</p>
-                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image img-thumbnail">
-            </li>
-            {% empty %}
-            <li>No products available.</li>
-        {% endfor %}
-    </ul>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>Products</h1>
+<ul>
+    {% for product in products %}
+        <li>
+            <a href="{% url 'catalog:product_detail' product.pk %}">{{ product.name }}</a>
+            - {{ product.price }} USD
+        </li>
+    {% endfor %}
+</ul>
+</body>
+</html>
